@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>We got married · Mol, August 28, 2027</title>
+  <meta name="description" content="We got married and would love to celebrate with you in Mol, Belgium on August 28, 2027.">
+  <meta property="og:title" content="We got married">
+  <meta property="og:description" content="We'd love to celebrate with you in Mol, Belgium on August 28, 2027.">
+  <meta property="og:image" content="img/share.jpg">
+  <meta property="og:type" content="website">
+  <link rel="preload" href="fonts/gaegu-300.woff2" as="font" type="font/woff2" crossorigin>
+  <style>
+    @font-face {
+      font-family: "Gaegu";
+      src: url("fonts/gaegu-300.woff2") format("woff2");
+      font-weight: 300;
+      font-display: swap;
+    }
+
+    :root { --ink: #fff1d6; }
+
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    html, body { margin: 0; }
+    body {
+      font-family: "Gaegu", cursive;
+      font-weight: 300;
+      color: var(--ink);
+      background: #3b4a2c;
+    }
+
+    main { position: relative; min-height: 100vh; min-height: 100svh; overflow: hidden; }
+
+    /* backgrounds: the empty garden always, the cut-outs of us fade in on top */
+    .layer {
+      position: absolute; inset: 0;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center 40%;
+      transition: opacity .45s ease;
+    }
+    .garden { background-image: url("img/garden.jpg"); }
+    .us { opacity: 0; }
+    .us-we   { background-image: url("img/we.webp"); }
+    .us-love { background-image: url("img/love.webp"); }
+    .us-mol  { background-image: url("img/mol.webp"); }
+    main[data-show="we"]   .us-we,
+    main[data-show="love"] .us-love,
+    main[data-show="mol"]  .us-mol { opacity: 1; }
+
+    .content {
+      position: relative;
+      min-height: 100vh; min-height: 100svh;
+      padding: clamp(20px, 4vh, 56px) clamp(24px, 5vw, 72px);
+      display: flex; flex-direction: column; justify-content: space-between; gap: 24px;
+    }
+
+    h1 {
+      margin: auto 0;
+      padding-top: 3vh;
+      font-weight: 300;
+      font-size: clamp(38px, min(9vw, 9.5vh), 150px);
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      text-align: center;
+      text-shadow: 0 1px 2px rgba(10,16,6,.55), 0 2px 22px rgba(10,16,6,.45);
+      transform: rotate(-3deg);
+    }
+    h1 span { display: block; }
+
+    .word {
+      font: inherit; color: inherit; letter-spacing: inherit; text-shadow: inherit;
+      background: none; border: 0; padding: 0; margin: 0; cursor: pointer;
+    }
+    .word:hover, .word:focus-visible, .word[aria-pressed="true"] {
+      outline: none;
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: .12em;
+    }
+
+    .ask {
+      align-self: flex-end;
+      width: max-content; min-width: min(280px, 100%); max-width: 100%;
+      display: flex; flex-direction: column; gap: 4px;
+      transform: rotate(-2deg);
+      text-shadow: 0 1px 2px rgba(10,16,6,.6), 0 2px 16px rgba(10,16,6,.5);
+    }
+    #ask-label { margin: 0; padding-left: 4px; font-size: 21px; font-weight: 300; line-height: 1.1; }
+    @media (min-width: 761px) { #ask-label { white-space: nowrap; } }
+    @media (max-width: 760px) { .ask { align-self: stretch; } }
+
+    form { display: flex; flex-direction: column; gap: 2px; }
+    .row { display: flex; align-items: flex-end; gap: 12px; }
+    .field {
+      flex: 1 1 auto; width: 100%; min-width: 0; height: 30px; padding: 0 4px;
+      background: transparent; border: 0; border-bottom: 1px solid color-mix(in srgb, var(--ink) 55%, transparent); border-radius: 0;
+      font-family: "Gaegu", cursive; font-weight: 300; font-size: 18px; color: var(--ink);
+    }
+    .field::placeholder { color: var(--ink); opacity: .85; }
+    .field:focus { outline: none; border-bottom-color: var(--ink); }
+    .send {
+      flex: 0 0 auto; width: 36px; height: 32px; padding: 0;
+      background: none; border: 0; cursor: pointer; color: var(--ink);
+      filter: drop-shadow(0 1px 2px rgba(10,16,6,.6));
+    }
+    .send:focus-visible { outline: 2px dashed currentColor; outline-offset: 6px; }
+    .send:disabled { opacity: .5; cursor: wait; }
+    .send svg { fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+    .status { margin: 8px 0 0; padding-left: 4px; max-width: 16em; font-size: 19px; line-height: 1.1; }
+    .status:empty { display: none; }
+
+    .visually-hidden {
+      position: absolute; width: 1px; height: 1px; overflow: hidden;
+      clip: rect(0 0 0 0); white-space: nowrap;
+    }
+
+    @media (prefers-reduced-motion: reduce) { .layer { transition: none; } }
+  </style>
+</head>
+<body>
+  <main id="page" data-show="">
+    <div class="layer garden" aria-hidden="true"></div>
+    <div class="layer us us-we" aria-hidden="true"></div>
+    <div class="layer us us-love" aria-hidden="true"></div>
+    <div class="layer us us-mol" aria-hidden="true"></div>
+
+    <div class="content">
+      <h1>
+        <span><button class="word" type="button" data-photo="we" aria-pressed="false">We</button> got married</span>
+        <span>and would <button class="word" type="button" data-photo="love" aria-pressed="false">love</button> to</span>
+        <span>celebrate with you</span>
+        <span>in <button class="word" type="button" data-photo="mol" aria-pressed="false">Mol</button>, Belgium</span>
+        <span>on August 28, 2027.</span>
+      </h1>
+
+      <section class="ask">
+        <p id="ask-label">Leave your details to receive our invitation</p>
+        <form id="signup" aria-labelledby="ask-label">
+          <label for="name" class="visually-hidden">Name</label>
+          <input id="name" class="field" name="name" type="text" required autocomplete="name" placeholder="name">
+          <label for="email" class="visually-hidden">Email address</label>
+          <input id="email" class="field" name="email" type="email" required autocomplete="email" placeholder="email">
+          <div class="row">
+            <label for="address" class="visually-hidden">Postal address</label>
+            <input id="address" class="field" name="address" type="text" required autocomplete="street-address" placeholder="address">
+            <button class="send" type="submit" aria-label="Send">
+              <svg aria-hidden="true" width="24" height="14" viewBox="0 0 40 24">
+                <path d="M2 12 H37"></path>
+                <path d="M27 3 L37 12 L27 21"></path>
+              </svg>
+            </button>
+          </div>
+        </form>
+        <p class="status" id="status" role="status" aria-live="polite"></p>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    // Photos: hover (or focus) a word to show us; tap on phones.
+    const page = document.getElementById('page');
+    const words = document.querySelectorAll('.word');
+    const show = (name) => {
+      page.dataset.show = name || '';
+      words.forEach(w => w.setAttribute('aria-pressed', String(w.dataset.photo === name)));
+    };
+    words.forEach(w => {
+      w.addEventListener('mouseenter', () => show(w.dataset.photo));
+      w.addEventListener('mouseleave', () => show(''));
+      w.addEventListener('focus', () => show(w.dataset.photo));
+      w.addEventListener('blur', () => show(''));
+      w.addEventListener('click', (e) => { e.stopPropagation(); show(w.dataset.photo); });
+    });
+    // On phones: tapping anywhere else goes back to the empty garden
+    document.addEventListener('click', (e) => { if (!e.target.closest('form')) show(''); });
+    // Preload the cut-outs so the first hover is instant
+    ['we', 'love', 'mol'].forEach(n => { const i = new Image(); i.src = 'img/' + n + '.webp'; });
+
+    // Invitation request: sends the three fields straight into our Google Form
+    // (responses land in the linked Google Sheet). No email app needed.
+    const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdATj1rTdy0LOFBiqfPTCVUZuQY9Ikg198dPeNwVpFlzp36XQ/formResponse';
+    const FIELDS = { name: 'entry.1130917360', email: 'entry.1649390001', address: 'entry.58252079' };
+
+    const form = document.getElementById('signup');
+    const status = document.getElementById('status');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const button = form.querySelector('.send');
+      button.disabled = true;
+      status.textContent = 'Sending…';
+      const data = new URLSearchParams();
+      for (const [id, entry] of Object.entries(FIELDS)) data.append(entry, document.getElementById(id).value.trim());
+      try {
+        // Google doesn't allow reading the reply from another site, so we can't see "success";
+        // a network error still throws and is shown below.
+        await fetch(FORM_URL, { method: 'POST', mode: 'no-cors', body: data });
+        form.hidden = true;
+        document.getElementById('ask-label').hidden = true;
+        status.textContent = "Thank you! We'll send you our invitation.";
+      } catch {
+        status.textContent = "That didn't go through. Please check your connection and try again.";
+        button.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
