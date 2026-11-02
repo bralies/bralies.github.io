@@ -44,12 +44,10 @@
     .us { opacity: 0; }
     .us-we   { background-image: url("img/we.webp"); }
     .us-love { background-image: url("img/love.webp"); }
-    .us-mol  { background-image: url("img/mol.webp"); }
-    .us-married { background-image: url("img/married.webp"); }
+    .us-mol  { background-image: url("img/mol.webp"); background-position: center 52%; }
     main[data-show="we"]   .us-we,
     main[data-show="love"] .us-love,
-    main[data-show="mol"]  .us-mol,
-    main[data-show="married"] .us-married { opacity: 1; }
+    main[data-show="mol"]  .us-mol { opacity: 1; }
 
     .content {
       position: relative;
@@ -128,11 +126,10 @@
     <div class="layer us us-we" aria-hidden="true"></div>
     <div class="layer us us-love" aria-hidden="true"></div>
     <div class="layer us us-mol" aria-hidden="true"></div>
-    <div class="layer us us-married" aria-hidden="true"></div>
 
     <div class="content">
       <h1>
-        <span><button class="word" type="button" data-photo="we" aria-pressed="false">We</button> got <button class="word" type="button" data-photo="married" aria-pressed="false">married</button></span>
+        <span><button class="word" type="button" data-photo="we" aria-pressed="false">We</button> got married</span>
         <span>and would <button class="word" type="button" data-photo="love" aria-pressed="false">love</button> to</span>
         <span>celebrate with you</span>
         <span>in <button class="word" type="button" data-photo="mol" aria-pressed="false">Mol</button>, Belgium</span>
@@ -171,8 +168,9 @@
       words.forEach(w => w.setAttribute('aria-pressed', String(w.dataset.photo === name)));
     };
     words.forEach(w => {
-      w.addEventListener('mouseenter', () => show(w.dataset.photo));
-      w.addEventListener('mouseleave', () => show(''));
+      // hover only for a real mouse; on touch screens a tap (click) shows the photo
+      w.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') show(w.dataset.photo); });
+      w.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') show(''); });
       w.addEventListener('focus', () => show(w.dataset.photo));
       w.addEventListener('blur', () => show(''));
       w.addEventListener('click', (e) => { e.stopPropagation(); show(w.dataset.photo); });
@@ -180,7 +178,7 @@
     // On phones: tapping anywhere else goes back to the empty garden
     document.addEventListener('click', (e) => { if (!e.target.closest('form')) show(''); });
     // Preload the cut-outs so the first hover is instant
-    ['we', 'married', 'love', 'mol'].forEach(n => { const i = new Image(); i.src = 'img/' + n + '.webp'; });
+    ['we', 'love', 'mol'].forEach(n => { const i = new Image(); i.src = 'img/' + n + '.webp'; });
 
     // Invitation request: sends the three fields straight into our Google Form
     // (responses land in the linked Google Sheet). No email app needed.
